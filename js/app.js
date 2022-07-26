@@ -9,19 +9,31 @@ let passLength = 15
 
 function generatePassword() {
     passLength = parseInt(document.getElementById("passwd-length").value)
-    passLength = isNaN(passLength) ? 15 : passLength
+    if(isNaN(passLength)){
+        notificationEl.textContent="Specify the length between 1 to 100 and only write numbers"
+
+        notificationEl.classList.add("showError")
+        return false
+    }
+    console.log(passLength)
     passOneEl.textContent = ""
     passTwoEl.textContent = ""
     includeNumbersAndSymbols = document.getElementById("checker").checked;
-
-    if(includeNumbersAndSymbols){
-        complexPassword(passLength)
+    if(passLength > 100){
+        showError("Password length should be not more than 100")
+        hideData();
+        return false
     }else{
-        normalPassword(passLength)
+        removeError()
+        if(includeNumbersAndSymbols){
+            complexPassword(passLength)
+            showData()
+        }else{
+            normalPassword(passLength)
+            showData()
+        }
     }
-    notificationEl.classList.add("show")
-    document.getElementById("pass-one").classList.add("show")
-    document.getElementById("pass-two").classList.add("show")
+    
 }
 
 function complexPassword(passLength) {
@@ -33,6 +45,7 @@ function complexPassword(passLength) {
         let rand = Math.floor(Math.random() * 62)
         passTwoEl.textContent += characters[rand]
     }
+    
 }
 function normalPassword(passLength){
     for (let i =0; i<passLength; i++){
@@ -49,7 +62,7 @@ function copyFirstPass(){
     let pass = document.getElementById("pass-one").textContent
     if(pass != ''){
         navigator.clipboard.writeText(pass)
-        notificationEl.textContent="Copied : "+pass
+        notificationEl.textContent="Copied!"
         notificationEl.classList.add("show")
     }
     
@@ -59,7 +72,27 @@ function copySecondPass(){
     let pass = document.getElementById("pass-two").textContent
     if(pass != ''){
         navigator.clipboard.writeText(pass)
-        notificationEl.textContent="Copied : " + pass
+        notificationEl.textContent="Copied!"
         notificationEl.classList.add("show")
     }
+}
+
+function showData(){
+    notificationEl.textContent="Click on the box to copy password"
+    notificationEl.classList.add("show")
+    document.getElementById("pass-one").classList.add("show")
+    document.getElementById("pass-two").classList.add("show")
+}
+function hideData(){
+    notificationEl.classList.remove("show")
+    document.getElementById("pass-one").classList.remove("show")
+    document.getElementById("pass-two").classList.remove("show")
+}
+
+function showError(message){
+    notificationEl.textContent=message
+    notificationEl.classList.add("showError")
+}
+function removeError(){
+    notificationEl.classList.remove("showError")
 }

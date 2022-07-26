@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Generate a <span class="text-primary">random password</span></h1>
+        <h3>Never use an insecure password again</h3>
+        <button class="btn" onclick="generatePassword()">Generate passwords</button>
+        <input type="number" name="passwd-length" id="passwd-length" placeholder="Specify Length of Password">
+        <div class="flex">
+            <input type="checkbox" name="check" id="checker"><label for="checker">Include Numbers and symbols </label>
+        </div>
+        <hr />
+        <h3 class=" notification hide">Click on password box to copy!</h3>
+        <div class="passwords">
+            <div id="pass-one" onclick="copyFirstPass()" class="hide"></div>
+            <div id="pass-two" onclick="copySecondPass()" class="hide"></div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
